@@ -12,9 +12,9 @@ The Emergency Room Queue and Priority Management System addresses the need for a
 
 Steps to Run
 Prerequisites:\
-`Java 17 or higher - check with java -version\
-Maven 3.6+ - check with mvn -version\
-No database setup needed - the app uses an in-memory H2 database that auto-creates on startup`\
+`Java 17 or higher - check with java -version`\
+`Maven 3.6+ - check with mvn -version`\
+`No database setup needed - the app uses an in-memory H2 database that auto-creates on startup`\
 
 1. Clone the Repository\
    `git clone https://github.com/[your-username]/ooad_mini.git`\
