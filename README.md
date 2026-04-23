@@ -9,3 +9,22 @@ The Emergency Room Queue and Priority Management System addresses the need for a
  2. Doctors have no real-time, sorted view of which patient to attend to next, making clinical decision-making dependent on manual tracking.
  3. Caretakers and family members receive no structured updates when a patient's status changes, causing anxiety and information gaps.
  4. Any change in priority logic requires modifications across multiple parts of the system if not designed with flexibility in mind.
+
+Steps to Run
+Prerequisites:
+Java 17 or higher - check with java -version
+Maven 3.6+ - check with mvn -version
+No database setup needed - the app uses an in-memory H2 database that auto-creates on startup
+
+1. Clone the Repository
+   `git clone https://github.com/[your-username]/ooad_mini.git`
+   `cd ooad_mini`
+
+2. Build the Project
+   `mvn clean install`
+
+3. Run the Application
+   `mvn spring-boot:run`
+
+5. Open in Browser
+   `http://localhost:8080`
