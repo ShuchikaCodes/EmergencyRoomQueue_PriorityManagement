@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Triage Assessment</title>
+    <style>
+        body { font-family: "Segoe UI", sans-serif; background: #ffffff; margin: 24px; }
+        form { max-width: 520px; }
+        label { display: block; margin-top: 12px; font-weight: 600; }
+        input, textarea { width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 6px; }
+        .error { color: #b91c1c; font-size: 14px; }
+    </style>
+</head>
+<body>
+<h1>Triage Nurse Assessment</h1>
+<p><strong>Patient:</strong> <span th:text="${patient.name}"></span></p>
+<p><strong>Symptoms:</strong> <span th:text="${patient.symptoms}"></span></p>
+
+<form th:action="@{/triage/{id}(id=${patient.id})}" th:object="${triageRequest}" method="post">
+    <label>Severity Level (1-10)</label>
+    <input type="number" min="1" max="10" th:field="*{severityLevel}">
+    <div class="error" th:errors="*{severityLevel}"></div>
+
+    <label>Assessment Note</label>
+    <textarea th:field="*{assessmentNote}"></textarea>
+
+    <button type="submit">Calculate Priority and Queue</button>
+    <a href="/">Back</a>
+</form>
+</body>
+</html>

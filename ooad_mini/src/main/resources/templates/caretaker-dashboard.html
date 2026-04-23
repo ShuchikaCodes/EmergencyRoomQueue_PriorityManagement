@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Caretaker Dashboard</title>
+    <style>
+        body { font-family: "Segoe UI", sans-serif; background: #ffffff; margin: 24px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #d1d5db; padding: 10px; text-align: left; }
+        th { background: #f8fafc; }
+    </style>
+</head>
+<body>
+<h1>Caretaker Dashboard</h1>
+
+<h2>Patient Status</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Ward</th>
+        <th>Status</th>
+        <th>Doctor</th>
+        <th>Latest Note</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="patient : ${patients}">
+        <td th:text="${patient.name}"></td>
+        <td th:text="${patient.assignedWard}"></td>
+        <td th:text="${patient.status}"></td>
+        <td th:text="${patient.treatedByDoctor}"></td>
+        <td th:text="${patient.latestNote}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Notifications</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Time</th>
+        <th>Message</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="notification : ${notifications}">
+        <td th:text="${notification.createdAt}"></td>
+        <td th:text="${notification.message}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/">Back to Dashboard</a>
+</body>
+</html>

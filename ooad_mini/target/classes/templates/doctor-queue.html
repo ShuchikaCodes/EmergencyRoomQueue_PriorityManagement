@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Queue</title>
+    <style>
+        body { font-family: "Segoe UI", sans-serif; background: #ffffff; margin: 24px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #d1d5db; padding: 10px; text-align: left; }
+        th { background: #f8fafc; }
+        .card { border: 1px solid #d1d5db; padding: 16px; border-radius: 10px; margin-bottom: 20px; }
+        a, button { margin-right: 8px; }
+    </style>
+</head>
+<body>
+<h1>ER Doctor Queue Review</h1>
+<p th:if="${nextPatient != null}">
+    <strong>Next Highest Priority Patient:</strong>
+    <span th:text="${nextPatient.name}"></span>
+    (<span th:text="${nextPatient.priorityScore}"></span>)
+</p>
+
+<div class="card">
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Symptoms</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${queue}">
+            <td th:text="${patient.name}"></td>
+            <td th:text="${patient.priorityScore}"></td>
+            <td th:text="${patient.status}"></td>
+            <td th:text="${patient.symptoms}"></td>
+            <td>
+                <a th:href="@{/doctor/override/{id}(id=${patient.id})}">Override Priority</a>
+                <a th:href="@{/doctor/treat/{id}(id=${patient.id})}">Treat</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<a href="/">Back to Dashboard</a>
+</body>
+</html>

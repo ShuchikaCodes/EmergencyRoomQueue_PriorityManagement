@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Patient</title>
+    <style>
+        body { font-family: "Segoe UI", sans-serif; background: #ffffff; margin: 24px; }
+        form { max-width: 520px; }
+        label { display: block; margin-top: 12px; font-weight: 600; }
+        input, select, textarea { width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 6px; }
+        button, a { margin-top: 16px; display: inline-block; }
+        .error { color: #b91c1c; font-size: 14px; }
+    </style>
+</head>
+<body>
+<h1>Admin / Ambulance Handler Registration</h1>
+<form th:action="@{/admin/register}" th:object="${patientRegistrationRequest}" method="post">
+    <label>Name</label>
+    <input type="text" th:field="*{name}">
+    <div class="error" th:errors="*{name}"></div>
+
+    <label>Age</label>
+    <input type="number" th:field="*{age}">
+    <div class="error" th:errors="*{age}"></div>
+
+    <label>Symptoms</label>
+    <textarea th:field="*{symptoms}"></textarea>
+    <div class="error" th:errors="*{symptoms}"></div>
+
+    <label>Arrival Mode</label>
+    <select th:field="*{arrivalMode}">
+        <option value="">Select</option>
+        <option th:each="mode : ${arrivalModes}" th:value="${mode}" th:text="${mode}"></option>
+    </select>
+    <div class="error" th:errors="*{arrivalMode}"></div>
+
+    <label>Assigned Ward</label>
+    <input type="text" th:field="*{assignedWard}">
+
+    <button type="submit">Register Patient</button>
+    <a href="/">Back to Dashboard</a>
+</form>
+</body>
+</html>

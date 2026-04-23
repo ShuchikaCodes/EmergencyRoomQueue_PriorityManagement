@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Override Priority</title>
+    <style>
+        body { font-family: "Segoe UI", sans-serif; background: #ffffff; margin: 24px; }
+        form { max-width: 520px; }
+        label { display: block; margin-top: 12px; font-weight: 600; }
+        input, textarea { width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 6px; }
+        .error { color: #b91c1c; font-size: 14px; }
+    </style>
+</head>
+<body>
+<h1>Manual Priority Override</h1>
+<p><strong>Patient:</strong> <span th:text="${patient.name}"></span></p>
+<p><strong>Current Priority:</strong> <span th:text="${patient.priorityScore}"></span></p>
+
+<form th:action="@{/doctor/override/{id}(id=${patient.id})}" th:object="${priorityOverrideRequest}" method="post">
+    <label>New Priority Score</label>
+    <input type="number" min="1" max="15" th:field="*{newPriorityScore}">
+    <div class="error" th:errors="*{newPriorityScore}"></div>
+
+    <label>Reason</label>
+    <textarea th:field="*{note}"></textarea>
+
+    <button type="submit">Apply Override</button>
+    <a href="/doctor/queue">Back</a>
+</form>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ER Queue Management</title>
+    <style>
+        body { font-family: "Segoe UI", sans-serif; background: #ffffff; color: #1f2937; margin: 24px; }
+        h1, h2 { color: #0f172a; }
+        .nav a, .action-link { margin-right: 12px; color: #0b57d0; text-decoration: none; }
+        .card { border: 1px solid #d1d5db; border-radius: 10px; padding: 16px; margin-bottom: 20px; background: #ffffff; }
+        table { width: 100%; border-collapse: collapse; background: #ffffff; }
+        th, td { border: 1px solid #d1d5db; padding: 10px; text-align: left; }
+        th { background: #f8fafc; }
+        .success { color: #166534; margin-bottom: 16px; }
+        button { background: #0b57d0; color: white; border: none; padding: 8px 12px; border-radius: 6px; }
+    </style>
+</head>
+<body>
+<h1>Emergency Room Queue &amp; Priority Management System</h1>
+<div class="nav">
+    <a href="/admin/register">Admin: Register Patient</a>
+    <a href="/doctor/queue">ER Doctor: Review Queue</a>
+    <a href="/caretaker/dashboard">Caretaker Dashboard</a>
+    <a href="/h2-console">H2 Console</a>
+</div>
+
+<p class="success" th:if="${successMessage}" th:text="${successMessage}"></p>
+
+<div class="card">
+    <h2>All Patients</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Arrival</th>
+            <th>Status</th>
+            <th>Severity</th>
+            <th>Priority</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.id}"></td>
+            <td th:text="${patient.name}"></td>
+            <td th:text="${patient.arrivalMode}"></td>
+            <td th:text="${patient.status}"></td>
+            <td th:text="${patient.severityLevel}"></td>
+            <td th:text="${patient.priorityScore}"></td>
+            <td>
+                <a class="action-link" th:href="@{/triage/{id}(id=${patient.id})}">Triage</a>
+                <a class="action-link" th:href="@{/doctor/treat/{id}(id=${patient.id})}">Treat</a>
+                <a class="action-link" th:href="@{/doctor/override/{id}(id=${patient.id})}">Override</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h2>Current Queue</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Latest Note</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${queue}">
+            <td th:text="${patient.name}"></td>
+            <td th:text="${patient.priorityScore}"></td>
+            <td th:text="${patient.status}"></td>
+            <td th:text="${patient.latestNote}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h2>Recent Notifications</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="notification : ${notifications}">
+            <td th:text="${notification.createdAt}"></td>
+            <td th:text="${notification.message}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

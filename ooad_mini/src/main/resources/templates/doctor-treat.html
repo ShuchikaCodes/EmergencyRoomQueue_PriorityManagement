@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Treat Patient</title>
+    <style>
+        body { font-family: "Segoe UI", sans-serif; background: #ffffff; margin: 24px; }
+        form { max-width: 520px; }
+        label { display: block; margin-top: 12px; font-weight: 600; }
+        input, textarea { width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 6px; }
+        .row { margin-top: 16px; }
+    </style>
+</head>
+<body>
+<h1>Treat Patient</h1>
+<p><strong>Patient:</strong> <span th:text="${patient.name}"></span></p>
+<p><strong>Status:</strong> <span th:text="${patient.status}"></span></p>
+
+<form th:action="@{/doctor/treat/{id}(id=${patient.id})}" th:object="${treatmentRequest}" method="post">
+    <label>Doctor Name</label>
+    <input type="text" th:field="*{doctorName}">
+
+    <label>Treatment Note</label>
+    <textarea th:field="*{treatmentNote}"></textarea>
+
+    <button type="submit">Start Treatment</button>
+    <a href="/doctor/queue">Back</a>
+</form>
+
+<div class="row" th:if="${patient.status.name() == 'UNDER_TREATMENT'}">
+    <form th:action="@{/doctor/discharge/{id}(id=${patient.id})}" method="post">
+        <input type="hidden" name="note" value="Treatment completed and patient discharged.">
+        <button type="submit">Discharge Patient</button>
+    </form>
+</div>
+</body>
+</html>
